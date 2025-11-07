@@ -1,4 +1,8 @@
 // Main application logic
+let currentEditMode = 'create'; // 'create' or 'edit'
+let currentEditId = null;
+let currentEditEventId = null;
+
 document.addEventListener('DOMContentLoaded', () => {
     console.log('App initializing...');
 
@@ -44,6 +48,8 @@ function setupEventListeners() {
     if (addAssignmentBtn) {
         addAssignmentBtn.addEventListener('click', () => {
             console.log('Add assignment button clicked');
+            currentEditMode = 'create';
+            currentEditId = null;
             openAssignmentModal();
         });
     } else {
@@ -64,6 +70,32 @@ function setupEventListeners() {
                 closeAssignmentModal();
             }
         });
+    }
+
+    // Event edit modal close
+    const closeEventEdit = document.getElementById('closeEventEdit');
+    if (closeEventEdit) {
+        closeEventEdit.addEventListener('click', () => closeEventEditModal());
+    }
+
+    const cancelEventEdit = document.getElementById('cancelEventEdit');
+    if (cancelEventEdit) {
+        cancelEventEdit.addEventListener('click', () => closeEventEditModal());
+    }
+
+    const eventEditModal = document.getElementById('eventEditModal');
+    if (eventEditModal) {
+        eventEditModal.addEventListener('click', (e) => {
+            if (e.target === eventEditModal) {
+                closeEventEditModal();
+            }
+        });
+    }
+
+    // Event edit form submission
+    const eventEditForm = document.getElementById('eventEditForm');
+    if (eventEditForm) {
+        eventEditForm.addEventListener('submit', handleEventEditSubmit);
     }
 
     // Form navigation
@@ -124,7 +156,17 @@ async function loadAssignments() {
 
             return `
                 <div class="assignment-card" style="border-left-color: ${subjectColor}">
-                    <h4>${assignment.title}</h4>
+                    <div class="assignment-header">
+                        <h4>${assignment.title}</h4>
+                        <div class="assignment-actions">
+                            <button class="btn-icon edit-assignment" onclick="editAssignment('${assignment.id}')" title="Edit Assignment">
+                                ✏️
+                            </button>
+                            <button class="btn-icon delete-assignment" onclick="deleteAssignment('${assignment.id}')" title="Delete Assignment">
+                                🗑️
+                            </button>
+                        </div>
+                    </div>
                     <div class="assignment-meta">
                         <span class="meta-item">📖 ${getSubjectName(assignment.subject)}</span>
                         <span class="meta-item">📅 Due ${dueDate.toLocaleDateString()}</span>
@@ -238,10 +280,22 @@ function validateStep(stepNumber) {
 // Modal controls
 function openAssignmentModal() {
     const modal = document.getElementById('assignmentModal');
+    const modalTitle = modal.querySelector('h2');
+    const submitButton = document.getElementById('submitForm');
+
     if (modal) {
+        // Update modal title and button based on mode
+        if (currentEditMode === 'edit') {
+            modalTitle.textContent = 'Edit Assignment';
+            submitButton.textContent = 'Update Assignment';
+        } else {
+            modalTitle.textContent = 'Add New Assignment';
+            submitButton.textContent = 'Create Study Plan';
+        }
+
         modal.classList.add('show');
         modal.style.display = 'flex';
-        console.log('Modal opened');
+        console.log('Modal opened in', currentEditMode, 'mode');
     } else {
         console.error('Modal not found');
     }

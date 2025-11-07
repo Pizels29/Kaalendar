@@ -1,10 +1,10 @@
 // Configuration settings for the application
 const config = {
-    // OpenAI API configuration
-    openai: {
-        apiKey: '', // To be provided by the user
-        model: 'gpt-3.5-turbo',
-        maxTokens: 1000
+    // Gemini API configuration
+    gemini: {
+        apiKey: 'AIzaSyASkunTICEayUrwyarKSgsvRUahJwcSNAM', // Get your API key from https://aistudio.google.com/app/apikey
+        model: 'gemini-1.5-flash', // Fast and efficient model
+        endpoint: 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent'
     },
 
     // Calendar configuration
@@ -36,6 +36,7 @@ const config = {
     storage: {
         assignments: 'studyAssistant_assignments',
         events: 'studyAssistant_events',
-        progress: 'studyAssistant_progress'
+        progress: 'studyAssistant_progress',
+        geminiApiKey: 'studyAssistant_geminiApiKey'
     }
 };

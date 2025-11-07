@@ -101,6 +101,51 @@
                 </form>
             </div>
         </div>
+
+        <!-- Confirmation Dialog -->
+        <div id="confirmDialog" class="confirmation-dialog">
+            <div class="confirmation-content">
+                <h3 id="confirmTitle">Confirm Action</h3>
+                <p id="confirmMessage">Are you sure?</p>
+                <div class="confirmation-details" id="confirmDetails"></div>
+                <div class="confirmation-actions">
+                    <button class="btn-secondary" id="confirmCancel">Cancel</button>
+                    <button class="btn-danger" id="confirmAction">Confirm</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Event Edit Modal -->
+        <div id="eventEditModal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal" id="closeEventEdit">&times;</span>
+                <h2>Edit Study Session</h2>
+                <form id="eventEditForm" class="assignment-form">
+                    <div class="form-group">
+                        <label for="eventTitle">Event Title</label>
+                        <input type="text" id="eventTitle" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="eventStart">Start Time</label>
+                        <input type="datetime-local" id="eventStart" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="eventDuration">Duration (hours)</label>
+                        <input type="number" id="eventDuration" min="0.5" max="4" step="0.5" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="eventCompleted">
+                            Mark as completed
+                        </label>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" id="cancelEventEdit">Cancel</button>
+                        <button type="submit" class="btn-primary">Update Event</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 
     <!-- Scripts -->

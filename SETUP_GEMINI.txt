@@ -1,0 +1,59 @@
+=================================================
+   GEMINI API INTEGRATION - SETUP GUIDE
+=================================================
+
+Your app now uses Google Gemini AI for intelligent study plan generation!
+
+STEP 1: GET YOUR API KEY
+-------------------------
+1. Visit: https://aistudio.google.com/app/apikey
+2. Sign in with Google
+3. Click "Create API Key"
+4. Copy the API key
+
+STEP 2: ADD API KEY TO CONFIG
+------------------------------
+Open: scripts/config.js
+
+Find this section:
+    gemini: {
+        apiKey: '',  // <-- ADD YOUR KEY HERE
+        model: 'gemini-1.5-flash',
+        ...
+    }
+
+Replace the empty string with your API key:
+    apiKey: 'AIzaSyYourActualKeyHere123',
+
+STEP 3: TEST IT
+---------------
+1. Open index_FIXED.html in your browser
+2. Create a new assignment
+3. Check browser console (F12) for:
+   - "Generating with Gemini..." = Working!
+   - Study plan details logged
+
+ALTERNATIVE: TEST WITHOUT MODIFYING FILES
+-----------------------------------------
+1. Open index_FIXED.html
+2. Open browser console (F12)
+3. Run this command:
+   aiService.saveApiKey('YOUR_API_KEY_HERE');
+4. Refresh page
+5. Create assignment
+
+WHAT GEMINI PROVIDES
+--------------------
+✅ Personalized topic breakdown
+✅ Smart time allocation based on proficiency
+✅ Subject-specific study techniques
+✅ Distributed milestones
+✅ Practical study tips
+
+FALLBACK BEHAVIOR
+-----------------
+If no API key or API fails:
+- App uses built-in algorithm
+- Still generates good study plans
+- No errors shown to user
+

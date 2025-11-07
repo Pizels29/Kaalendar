@@ -57,13 +57,7 @@ class AIService {
     }
 
     createPrompt(assignment) {
-        // Fix: Use date-only comparison to avoid timezone issues
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
-        const dueDate = new Date(assignment.dueDate);
-        dueDate.setHours(0, 0, 0, 0);
-        const days = Math.ceil((dueDate - today) / 86400000);
-
+        const days = Math.ceil((new Date(assignment.dueDate) - new Date()) / 86400000);
         return `Create a study plan for ${assignment.subject} ${assignment.title}.
 Due: ${days} days, Target: ${assignment.targetGrade}%, Level: ${assignment.proficiencyLevel}/5
 Hours: Weekday ${assignment.weekdayHours}h, Weekend ${assignment.weekendHours}h
@@ -97,14 +91,7 @@ Return JSON only:
 
     generateSimplifiedPlan(assignment) {
         const topics = this.getSubjectTopics(assignment.subject);
-
-        // Fix: Use date-only comparison to avoid timezone issues
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
-        const dueDate = new Date(assignment.dueDate);
-        dueDate.setHours(0, 0, 0, 0);
-        const days = Math.max(1, Math.ceil((dueDate - today) / 86400000));
-
+        const days = Math.ceil((new Date(assignment.dueDate) - new Date()) / 86400000);
         const weekdays = Math.floor(days * 5/7);
         const weekends = Math.floor(days * 2/7);
         const totalHours = weekdays * assignment.weekdayHours + weekends * assignment.weekendHours;
@@ -170,13 +157,7 @@ Return JSON only:
     }
 
     generateMilestones(topics, dueDate) {
-        // Fix: Use date-only comparison to avoid timezone issues
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
-        const due = new Date(dueDate);
-        due.setHours(0, 0, 0, 0);
-        const days = Math.max(1, Math.ceil((due - today) / 86400000));
-
+        const days = Math.ceil((new Date(dueDate) - new Date()) / 86400000);
         const list = Array.isArray(topics) ? topics : [];
         const count = Math.min(4, Math.max(2, list.length));
         const milestones = [];
