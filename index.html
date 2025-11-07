@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Study Assistant</title>
+    <link rel="stylesheet" href="./styles/main.css">
+    <link rel="stylesheet" href="./styles/calendar.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <h1>Student Study Assistant</h1>
+            <button id="addAssignmentBtn" class="btn-primary">Add Assignment</button>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Dashboard Overview -->
+            <section class="dashboard" id="dashboard">
+                <h2>Your Study Dashboard</h2>
+                <div class="dashboard-grid">
+                    <div class="upcoming-assignments">
+                        <h3>Upcoming Assignments</h3>
+                        <div id="assignmentsList"></div>
+                    </div>
+                    <div class="study-progress">
+                        <h3>Progress Overview</h3>
+                        <div id="progressTracker"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Calendar Section -->
+            <section class="calendar-section">
+                <h2>Study Schedule</h2>
+                <div id="calendar"></div>
+            </section>
+        </main>
+
+        <!-- Assignment Input Modal -->
+        <div id="assignmentModal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <h2>Add New Assignment</h2>
+                <form id="assignmentForm" class="assignment-form">
+                    <!-- Step 1: Basic Info -->
+                    <div class="form-step" data-step="1">
+                        <div class="form-group">
+                            <label for="title">Assignment Title</label>
+                            <input type="text" id="title" name="title" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <select id="subject" name="subject" required>
+                                <option value="">Select Subject</option>
+                                <option value="math">Mathematics</option>
+                                <option value="science">Science</option>
+                                <option value="english">English</option>
+                                <option value="history">History</option>
+                                <option value="language">Foreign Language</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="dueDate">Due Date</label>
+                            <input type="date" id="dueDate" name="dueDate" required>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Goals -->
+                    <div class="form-step" data-step="2">
+                        <div class="form-group">
+                            <label for="targetGrade">Target Grade (%)</label>
+                            <input type="number" id="targetGrade" name="targetGrade" min="0" max="100" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="proficiencyLevel">Current Proficiency Level (1-5)</label>
+                            <input type="range" id="proficiencyLevel" name="proficiencyLevel" min="1" max="5" required>
+                            <span class="proficiency-display">3</span>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Time Availability -->
+                    <div class="form-step" data-step="3">
+                        <div class="form-group">
+                            <label for="weekdayHours">Available Hours (Weekdays)</label>
+                            <input type="number" id="weekdayHours" name="weekdayHours" min="0" max="24" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="weekendHours">Available Hours (Weekends)</label>
+                            <input type="number" id="weekendHours" name="weekendHours" min="0" max="24" required>
+                        </div>
+                    </div>
+
+                    <div class="form-navigation">
+                        <button type="button" class="btn-secondary" id="prevStep" disabled>Previous</button>
+                        <button type="button" class="btn-primary" id="nextStep">Next</button>
+                        <button type="submit" class="btn-primary" id="submitForm" style="display: none;">Create Study Plan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <!-- Utilities -->
+    <script src="./scripts/utils/dateUtils.js"></script>
+    <script src="./scripts/utils/domUtils.js"></script>
+    
+    <!-- Components -->
+    <script src="./scripts/components/Calendar.js"></script>
+    <script src="./scripts/components/EventForm.js"></script>
+    <script src="./scripts/components/ProgressTracker.js"></script>
+    
+    <!-- Services -->
+    <script src="./scripts/services/dataService.js"></script>
+    <script src="./scripts/services/aiService.js"></script>
+    <script src="./scripts/services/progressService.js"></script>
+    
+    <!-- Core -->
+    <script src="./scripts/config.js"></script>
+    <script src="./scripts/app.js"></script>
+</body>
+</html>
